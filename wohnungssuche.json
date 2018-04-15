@@ -1,0 +1,880 @@
+{
+  "schema_version": 1,
+  "name": "wohnungssuche",
+  "description": "This scenario is for apartment search in Hamburg, Germany. It has several event sources from building companies who have their own property ads on their website.",
+  "source_url": false,
+  "guid": "b157be4c66ae64b92ae4725fee342313",
+  "tag_fg_color": "#ffffff",
+  "tag_bg_color": "#5bc0de",
+  "icon": "home",
+  "exported_at": "2018-04-15T12:44:19Z",
+  "agents": [
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "VHW (Marta)",
+      "disabled": true,
+      "guid": "0f698bf981b8a044b639ec8e9163e1b2",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.vhw-hamburg.de/wohnen/aktuelle-angebote/miete/200__400/anzahl_zimmer/1__2/wbs/1.html",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": ".searchResults--list--object--content a",
+            "value": "normalize-space(.)"
+          },
+          "url": {
+            "css": ".searchResults--list--object--content a",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "https://www.vhw-hamburg.de/"
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 86400,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "WG-Gesucht (Beide)",
+      "disabled": true,
+      "guid": "0fa9e3c226eceeb91b90a61d76c65186",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.wg-gesucht.de/wohnungen-in-Hamburg.55.2.1.0.html?offer_filter=1&sort_column=0&noDeact=1&city_id=55&category=2&rent_type=2&rMax=800&ot%5B1189%5D=1189&ot%5B1190%5D=1190&ot%5B1192%5D=1192&ot%5B1193%5D=1193&ot%5B1200%5D=1200&ot%5B1204%5D=1204&ot%5B1207%5D=1207&ot%5B1208%5D=1208&ot%5B1210%5D=1210&ot%5B85010%5D=85010&ot%5B85011%5D=85011&ot%5B1220%5D=1220&ot%5B1221%5D=1221&ot%5B1222%5D=1222&ot%5B1227%5D=1227&ot%5B1228%5D=1228&ot%5B1229%5D=1229&ot%5B1230%5D=1230&ot%5B1251%5D=1251&ot%5B1272%5D=1272&ot%5B1271%5D=1271&ot%5B85021%5D=85021&ot%5B1279%5D=1279&ot%5B1283%5D=1283&ot%5B1287%5D=1287&bal=1",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": "#main_column .col-sm-8 .row .headline-list-view .detailansicht",
+            "value": "string(.)"
+          },
+          "url": {
+            "css": "#main_column .col-sm-8 .row .headline-list-view .detailansicht",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "https://www.wg-gesucht.de/"
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 86400,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Immowelt",
+      "disabled": true,
+      "guid": "12644ed511645b2415c3a285cca3c1e6",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.immowelt.de/liste/hamburg-altona-altstadt/wohnungen/mieten?geoid=10802001000005%2C10802005000007%2C10802005000008%2C10802004000015%2C10802005000019%2C10802007000022%2C10802004000030%2C10802004000033%2C10802004000032%2C10802005000044%2C10802004000045%2C10802004000067%2C10802003000081%2C10802004000086%2C10802004000087%2C10802001000088%2C10802005000094%2C10802007000098%2C10802005000102&prima=650&eqid=1001&sort=createdate%2Bdesc",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": ".listcontent.clear h2",
+            "value": "string(.)"
+          },
+          "url": {
+            "css": ".listitem.relative.js-listitem>a",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "https://www.immowelt.de"
+      },
+      "schedule": "every_5m",
+      "keep_events_for": 86400,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Wohnungsbaugenossenschaft Gartenstadt Wandsbek",
+      "disabled": true,
+      "guid": "131c16290fa6ecb33b722e60bf9357fe",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://asp2.immosolve.eu/immosolve_presentation/pub/modern/2227623/HP/immo.jsp",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": "#objectsBody"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Kaifu Nordland eG",
+      "disabled": true,
+      "guid": "13fbdfa884fca7371fe4261755b3b247",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://kaifu.de/index.php?id=14",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": ".tx-zekaifu-pi2"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "VHW (beide)",
+      "disabled": true,
+      "guid": "141a1b359260237d241451a8136f4259",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.vhw-hamburg.de/wohnen/aktuelle-angebote/miete/200__800/anzahl_zimmer/1__4.html",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": ".searchResults--list--object--content a",
+            "value": "normalize-space(.)"
+          },
+          "url": {
+            "css": ".searchResults--list--object--content a",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "https://www.vhw-hamburg.de/"
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 86400,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Wohnungsunternehmen Plambeck",
+      "disabled": true,
+      "guid": "22fa043bf7787d9e54baf1828a65f824",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "http://www.plambeck.com/content/suche/?ort=Hamburg&typ=Wohnung&mietekauf=Miete&groesse=Alle+Gr%C3%B6%C3%9Fen&x=18&y=11",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": ".entry-content.clearfix"
+          }
+        }
+      },
+      "schedule": "every_5m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::SlackAgent",
+      "name": "Slack Channel Notification",
+      "disabled": true,
+      "guid": "319c4e51b7b57079b3e2ef864c6234c1",
+      "options": {
+        "webhook_url": "{% credential slack_webhook %}",
+        "channel": "#wohnungssuche",
+        "username": "Huginn",
+        "message": "{{ message }} <{{ url }}|Zum Inserat>",
+        "icon": ""
+      },
+      "propagate_immediately": true
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "WG-Gesucht (Marta)",
+      "disabled": true,
+      "guid": "357831802b63d44e150821920bfd4355",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Hamburg.55.1.1.0.html?offer_filter=1&sort_column=0&noDeact=1&city_id=55&category=1&rent_type=2&rMax=500&ot%5B1189%5D=1189&ot%5B1190%5D=1190&ot%5B1192%5D=1192&ot%5B1193%5D=1193&ot%5B1200%5D=1200&ot%5B1204%5D=1204&ot%5B1207%5D=1207&ot%5B1208%5D=1208&ot%5B1210%5D=1210&ot%5B85010%5D=85010&ot%5B85011%5D=85011&ot%5B1220%5D=1220&ot%5B1221%5D=1221&ot%5B1222%5D=1222&ot%5B1227%5D=1227&ot%5B1228%5D=1228&ot%5B1229%5D=1229&ot%5B1230%5D=1230&ot%5B1251%5D=1251&ot%5B1272%5D=1272&ot%5B1271%5D=1271&ot%5B85021%5D=85021&ot%5B1279%5D=1279&ot%5B1283%5D=1283&ot%5B1287%5D=1287&bal=1",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": "#main_column .col-sm-8 .row .headline-list-view .detailansicht",
+            "value": "string(.)"
+          },
+          "url": {
+            "css": "#main_column .col-sm-8 .row .headline-list-view .detailansicht",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "https://www.wg-gesucht.de/"
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 86400,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Baugenossenschaft Hamburger Wohnen",
+      "disabled": true,
+      "guid": "432d8a65f54d07da41b280cc17a88ac3",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://asp-02.immosolve.eu/immosolve_presentation/pub/modern/4000003/HP/immo.jsp",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": "#objectsBody"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Wohnungsgenossenschaft von 1904",
+      "disabled": true,
+      "guid": "45ff1b8b8332d969fc49f276a65378ca",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.1904.de/wohnungen/wohnungsangebote/wohnungsangebote/",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": "#mainContent"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Akelius",
+      "disabled": true,
+      "guid": "54d5a01a6f59ffff02ac693185c256b0",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.akelius.de/suche/wohnungen/norden/hamburg/list?region=all",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": "figcaption h3",
+            "value": "normalize-space(.)"
+          },
+          "url": {
+            "css": ".list-links figure>a",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "https://www.akelius.de"
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 86400,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Bauverein Reiherstieg",
+      "disabled": true,
+      "guid": "5882a12bc52065898452d45fa33df49a",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://hpm2.immosolve.eu/immosolve_presentation/pub/modern/2217860/HP/immo.jsp",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": "#objectsBody"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Bauverein der Elbgemeinden",
+      "disabled": true,
+      "guid": "5fc54691782067e4e0ad9f3eb8ff63b9",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.bve.de/wohnen-beim-bve/wohnungsbestand/wohnungsangebote/",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": ".innerContent"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Hanseatische Baugenossenschaft Hamburg",
+      "disabled": true,
+      "guid": "69437112bd92539413f529b702ec7884",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.hanseatische.de/de/Wohnungsangebote",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": ".main"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Wohnungsverein Hamburg 1902",
+      "disabled": true,
+      "guid": "697df2d4f0d47e4043adaa07ca43c889",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.wv1902.de/Wohnungen?utf8=%E2%9C%93&district=&street=&max_rent=800&min_rooms=1&max_rooms=4&min_size=&max_size=&commit=%C2%BBFiltern",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": "#mainR"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::EventFormattingAgent",
+      "name": "Format with Detail",
+      "disabled": true,
+      "guid": "6cb5bfe78c804b84a73859f220197c7a",
+      "options": {
+        "instructions": {
+          "message": "Neues Inserat bei {{agent.name}}: {{listEntry | replace:'NEU',''}}",
+          "url": "{{agent.options.baseUrl}}{{url}}",
+          "title": "Wohnungssuche"
+        },
+        "mode": "clean"
+      },
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Meravis",
+      "disabled": true,
+      "guid": "76afdae19f169ced63b51dba8fc949cc",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "{{url}}",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": ".md-headline",
+            "value": "string(.)"
+          }
+        },
+        "baseUrl": "https://www.meravis.de/immobiliensuche/?tx_uodata_uodata%5Baction%5D=apartmentSearchList&tx_uodata_uodata%5Bcontroller%5D=DataManagement&tx_uodata_uodata%5BapartmentSearch%5D%5Bregions%5D=165,175,582,580,135,583,120,450,150,445,180,153,410,425,435,172,420,155,415,136,430,470,475,491,130,595,640,140,596,142,160,170,455,615,440,575,510,605,611,610,505,495,500,390"
+      },
+      "schedule": "every_1h",
+      "keep_events_for": 86400,
+      "propagate_immediately": true
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Hansa Baugenossenschaft",
+      "disabled": true,
+      "guid": "7792a17acbd83e35fe239000ac4141a1",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://asp-02.immosolve.eu/immosolve_presentation/pub/modern/2228361/1553/immo.jsp",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": "#objectsBody"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "dhu Baugenossenschaft",
+      "disabled": true,
+      "guid": "8209fb938b111006421dadbad3d7bab8",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://asp-02.immosolve.eu/immosolve_presentation/pub/modern/2223228/HP/immo.jsp",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": "#objectsBody"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Erich Thor Wohnungsunternehmen GmbH",
+      "disabled": true,
+      "guid": "880d4909eeec6e6792e84d2ecf2cbe98",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.thor.de/de/privat/list",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": ".list-desc-text>strong",
+            "value": "normalize-space(.)"
+          },
+          "url": {
+            "css": ".row.listobj>a",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "https://www.thor.de"
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Saga GWG",
+      "disabled": true,
+      "guid": "884a0afded905ba7abe6408c3dece09a",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.saga.hamburg/immobiliensuche?type=wohnungen",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": ".teaser-content.cf.media__body h3.h3.teaser-h",
+            "value": "string(.)"
+          },
+          "url": {
+            "css": ".teaser3.teaser3--listing.teaser-simple--boxed a.inner.media",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "https://www.saga.hamburg"
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 86400,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Immobilienscout",
+      "disabled": true,
+      "guid": "8e690c1cd8df4995ea0aa7d36187ac12",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.immobilienscout24.de/Suche/S-2/Wohnung-Miete/Hamburg/Hamburg/5_6_9_10_18_20_25_28_29_31_131_45_47_48_49_52_57_58_46_75_99_127_106_132_113_55_122/-/25,00-/EURO--650,00/-/-/-/-/-/true?enteredFrom=result_list",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": ".result-list-entry__data h5",
+            "value": "string(.)"
+          },
+          "url": {
+            "css": "a.result-list-entry__brand-title-container",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "https://www.immobilienscout24.de"
+      },
+      "schedule": "every_5m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::PhantomJsCloudAgent",
+      "name": "Meravis (PhantomJS)",
+      "disabled": true,
+      "guid": "938c8c517c4e6d9e1d262a6a215c9b79",
+      "options": {
+        "mode": "clean",
+        "api_key": "{% credential phantomjs_cloud %}",
+        "url": "https://2307385.hpm.immosolve.eu/?startRoute=result-list&objectIdentifier=2&regions=165,175,582,580,135,583,120,450,150,445,180,153,410,425,435,172,420,155,415,136,430,470,475,491,130,595,640,140,596,142,160,170,455,615,440,575,510,605,611,610,505,495,500,390#!/result-list-2",
+        "render_type": "html",
+        "output_as_json_radio": "false",
+        "output_as_json": "false",
+        "ignore_images_radio": "false",
+        "ignore_images": "false",
+        "user_agent": "Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19",
+        "wait_interval": "1000"
+      },
+      "schedule": "every_1h",
+      "keep_events_for": 86400,
+      "propagate_immediately": true
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Wentzel Dr",
+      "disabled": true,
+      "guid": "97278514609d99170fe517045680a8ef",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.wentzel-dr.de/immobilien/mietwohnungen/norddeutschland?sort=aktuell&asc=1",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": ".objektHeadlineCard",
+            "value": "string(.)"
+          },
+          "url": {
+            "css": ".objektImage>a",
+            "value": "@href"
+          }
+        },
+        "baseUrl": ""
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 86400,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Kock-Siedlung",
+      "disabled": true,
+      "guid": "a361aa6f65d3ccb7758702c1eb013536",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://portal.immobilienscout24.de/ergebnisliste/56421029",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": ".result__list__element__infos--figcaption a",
+            "value": "string(.)"
+          },
+          "url": {
+            "css": ".result__list__element__infos--figcaption a",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "https://portal.immobilienscout24.de"
+      },
+      "schedule": "every_5m",
+      "keep_events_for": 0,
+      "propagate_immediately": true
+    },
+    {
+      "type": "Agents::EventFormattingAgent",
+      "name": "Format No Detail",
+      "disabled": true,
+      "guid": "a858275b6f8ebc3fba46768b0df2f1bf",
+      "options": {
+        "instructions": {
+          "message": "Neuer Eintrag bei {{agent.name}}",
+          "url": "{{agent.options['url']}}",
+          "title": "Wohnungssuche"
+        },
+        "mode": "clean"
+      },
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Baugenossenschaft Dennerstraße",
+      "disabled": true,
+      "guid": "c5b0dcefa6330004041893e6f5a6c4da",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "http://www.bds-hamburg.de/vermietung/wohnungsangebote.html",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": ".inner"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Wichern Baugesellschaft",
+      "disabled": true,
+      "guid": "c5c5ff80a5bdacb92842db4b0c10ff19",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "http://www.wichernbau.de/index.php?option=com_jea&view=properties&Itemid=135",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": ".span12.row_uebersicht_data",
+            "value": "normalize-space(.)"
+          },
+          "url": {
+            "css": ".span12.row_uebersicht_data a",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "http://www.wichernbau.de"
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 86400,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::PushoverAgent",
+      "name": "Pushover Notification",
+      "disabled": true,
+      "guid": "c7e1564d6b8f90b71b36d30661532d1e",
+      "options": {
+        "token": "{% credential pushover_token %}",
+        "user": "{% credential pushover_user %}",
+        "message": "{{message}}",
+        "device": "{{ device }}",
+        "title": "{{title}}",
+        "url": "{{url}}",
+        "url_title": "Zur Webseite",
+        "priority": "{{ priority }}",
+        "timestamp": "{{ timestamp }}",
+        "sound": "{{ sound }}",
+        "retry": "{{ retry }}",
+        "expire": "{{ expire }}",
+        "expected_receive_period_in_days": "1"
+      },
+      "propagate_immediately": true
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Walddörfer",
+      "disabled": true,
+      "guid": "d18b369099e1d8d9660403c726a1224f",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://hpm2.immosolve.eu/immosolve_presentation/pub/modern/2227215/HP/immo.jsp",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": "#objectsBody"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 0,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "ROLF KRÜGER Immobilien",
+      "disabled": true,
+      "guid": "eda9e6d577e2160f586f5930ed709eb0",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "http://www.rolf-krueger-immobilien.de/Mietangebote_Hamburg/mietangebote_hamburg.html",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "content": {
+            "css": "#Tabelle1"
+          }
+        }
+      },
+      "schedule": "every_10m",
+      "keep_events_for": 86400,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Immonet",
+      "disabled": true,
+      "guid": "f2a275f6d0f86ba50b362b490636ef2b",
+      "options": {
+        "expected_update_period_in_days": "2",
+        "url": "https://www.immonet.de/immobiliensuche/sel.do?pageoffset=1&listsize=25&objecttype=1&locationname=Hamburg&acid=&actype=&district=9524&district=9525&district=9527&district=9528&district=9535&district=9539&district=9542&district=9543&district=9545&district=9573&district=7254&district=9554&district=9555&district=9560&district=9563&district=9564&district=9565&district=9566&district=9588&district=9601&district=9607&district=9608&district=72732&district=9615&district=9619&district=9623&ajaxIsRadiusActive=false&sortby=19&suchart=1&radius=0&pcatmtypes=1_2&pCatMTypeStoragefield=&parentcat=1&marketingtype=2&fromprice=&toprice=650&fromarea=25&toarea=&fromplotarea=&toplotarea=&fromrooms=&torooms=&objectcat=-1&feature=57&wbs=-1&fromyear=&toyear=&fulltext=&absenden=Ergebnisse+anzeigen",
+        "type": "html",
+        "mode": "on_change",
+        "extract": {
+          "listEntry": {
+            "css": "#result-list-stage .search-info a.block",
+            "value": "@title"
+          },
+          "url": {
+            "css": "#result-list-stage .search-info a.block",
+            "value": "@href"
+          }
+        },
+        "baseUrl": "https://www.immonet.de",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"
+      },
+      "schedule": "every_5m",
+      "keep_events_for": 86400,
+      "propagate_immediately": true
+    }
+  ],
+  "links": [
+    {
+      "source": 0,
+      "receiver": 16
+    },
+    {
+      "source": 1,
+      "receiver": 16
+    },
+    {
+      "source": 2,
+      "receiver": 16
+    },
+    {
+      "source": 3,
+      "receiver": 26
+    },
+    {
+      "source": 4,
+      "receiver": 26
+    },
+    {
+      "source": 5,
+      "receiver": 16
+    },
+    {
+      "source": 6,
+      "receiver": 26
+    },
+    {
+      "source": 8,
+      "receiver": 16
+    },
+    {
+      "source": 9,
+      "receiver": 26
+    },
+    {
+      "source": 10,
+      "receiver": 26
+    },
+    {
+      "source": 11,
+      "receiver": 16
+    },
+    {
+      "source": 12,
+      "receiver": 26
+    },
+    {
+      "source": 13,
+      "receiver": 26
+    },
+    {
+      "source": 14,
+      "receiver": 26
+    },
+    {
+      "source": 15,
+      "receiver": 26
+    },
+    {
+      "source": 16,
+      "receiver": 29
+    },
+    {
+      "source": 16,
+      "receiver": 7
+    },
+    {
+      "source": 17,
+      "receiver": 16
+    },
+    {
+      "source": 18,
+      "receiver": 26
+    },
+    {
+      "source": 19,
+      "receiver": 26
+    },
+    {
+      "source": 20,
+      "receiver": 16
+    },
+    {
+      "source": 21,
+      "receiver": 16
+    },
+    {
+      "source": 22,
+      "receiver": 16
+    },
+    {
+      "source": 23,
+      "receiver": 17
+    },
+    {
+      "source": 24,
+      "receiver": 16
+    },
+    {
+      "source": 25,
+      "receiver": 16
+    },
+    {
+      "source": 26,
+      "receiver": 29
+    },
+    {
+      "source": 26,
+      "receiver": 7
+    },
+    {
+      "source": 27,
+      "receiver": 26
+    },
+    {
+      "source": 28,
+      "receiver": 16
+    },
+    {
+      "source": 30,
+      "receiver": 26
+    },
+    {
+      "source": 31,
+      "receiver": 26
+    },
+    {
+      "source": 32,
+      "receiver": 16
+    }
+  ],
+  "control_links": [
+
+  ]
+}
