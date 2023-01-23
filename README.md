@@ -1,6 +1,6 @@
 # Huginn Wohnungssuche
 
-This is a collection of [Huginn](http://www.opensourcerails.com/huginn/) Agents for apartment searches in Germany. It will check the sites in a defined interval and notifies you immediately about new apartments.
+This is a collection of [Huginn](https://github.com/huginn/huginn) Agents for apartment searches in Germany. It will check the sites in a defined interval and notifies you immediately about new apartments.
 
 They agents come bundled in a scenario which you can import into your Huginn instance. After that you can change the Site URLs to match your search parameters, or add new pages you like to watch.
 
